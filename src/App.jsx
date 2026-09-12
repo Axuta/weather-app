@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
+import CurrentWeather from "./components/CurrentWeather";
+import ForecastList from "./components/ForecastList";
 import { searchCity, getWeather } from "./utils/api";
 
 function App() {
@@ -33,7 +35,12 @@ function App() {
 
             {status === "error" && <p className="error">{error}</p>}
 
-            {status === "success" && <p>Loaded: {cityName}</p>}
+            {status === "success" && (
+                <>
+                    <CurrentWeather weather={weather} cityName={cityName} />
+                    <ForecastList daily={weather.daily} />
+                </>
+            )}
 
             {status === "idle" && <p className="status">Search for a city to see the forecast</p>}
         </div>
